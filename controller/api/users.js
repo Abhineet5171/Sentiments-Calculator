@@ -10,17 +10,17 @@ const User = require('../../model/User');
 //@desc   create new user
 //@access PUBLIC 
 router.post('/',[
-
 check('name', 'name is required').not().isEmpty(),
 check('username', 'username is required').not().isEmpty(),
 check('password','Please enter a password with 6 or more character').isLength({min:6}),
-check('dateOfBirth','Please Select a date').isEmpty(),
+// check('dateOfBirth','Please Select a date').isEmpty(),
 check('location','Enter a valid location').isLength({min:3}),
-check('department','Enter a valid department').isLength({min:3}),
+check('department','Enter a valid department').isLength({min:2}),
 check('designation','Designation cannot be less than 3 char').isLength({min:3}),
 ],
 
 async (req,res)=>{
+    console.log(req.body);
     const errors = validationResult(req);
 
     if(!errors.isEmpty()){
