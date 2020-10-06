@@ -12,6 +12,7 @@ const User = require('../../model/User');
 router.post('/',[
 check('name', 'name is required').not().isEmpty(),
 check('username', 'username is required').not().isEmpty(),
+check('username', 'username must be atleast 4 chars').isLength({min:4}),
 check('password','Please enter a password with 6 or more character').isLength({min:6}),
 // check('dateOfBirth','Please Select a date').isEmpty(),
 check('location','Enter a valid location').isLength({min:3}),
@@ -74,6 +75,46 @@ async (req,res)=>{
         console.error(err.message);
     }
 })
+
+//get all users (to be consumed internally)
+router.get('/all',async (req,res)=>{
+    
+    
+    if(req.headers.key==="valid-key"){try {
+       const users = await User.find();
+       res.json(users);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }}
+    else {res.status(401).send("UNAUTHORISED REQUEST")}
+})
+
+//get a user's data
+//@route  Get api/user/user/:user_id
+//@desc   Get profile by user id
+//@access Public
+
+router.get('/user/:username',async (req,res)=>{
+    try {
+       const user = await User.findOne({username: req.params.username});
+        if(!user){return res.status(400).json({msg:"Profile not found"})}
+
+       res.json(user); 
+    } catch (err) {
+         console.log(err.message);
+        if(err.kind == 'ObjectId'){
+            return res.status(400).json({msg:"Profile not found"})
+        }
+        console.error(err.message);
+        res.status(500).send('Server Error');
+        
+    }
+})
+
+
+
+
 
 
 module.exports = router;
