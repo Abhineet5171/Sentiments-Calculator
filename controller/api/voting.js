@@ -13,12 +13,12 @@ router.post('/',[auth,[
     check('vote','vote is Required').not().isEmpty()
 ]
 ],async (req, res)=>{
-    
+    console.log("here")
     const error = validationResult(req);
     if (!error.isEmpty()){
         return res.status(400).json({error: errors.array() });
     }
-
+console.log("inside vote");
     let user = await User.find({_id:req.user.id});
     //we get user data
 
@@ -35,7 +35,8 @@ router.post('/',[auth,[
 
     // }
 
-    res.send(user);
+    res.redirect('/vote/success');
 })
+
 
 module.exports = router;

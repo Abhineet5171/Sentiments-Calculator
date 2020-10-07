@@ -1,0 +1,45 @@
+<%- include('./includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/forms.css">
+    <link rel="stylesheet" href="/css/auth.css">
+</head>
+
+<body>
+    <main>
+        <form class="register-form" action="/api/user" method="POST">
+            <div class="form-control">
+                <label for="name">Full Name</label>
+                <input type="text" name="name" id="name" placeholder="full name">
+            </div>
+            <div class="form-control">
+                <label for="username">Username</label>
+                <input type="text" name="username" id="username" placeholder="username">
+            </div>
+            <div class="form-control">
+                <label for="dob">Date of birth</label>
+                <input type="date" name="dateOfBirth" id="dob">
+            </div>
+            <div class="form-control">
+                <label for="location">location</label>
+                <input type="text" name="location" id="location" placeholder="location">
+            </div>
+            <div class="form-control">
+                <label for="department">Department</label>
+                <input type="text" name="department" id="department" placeholder="department">
+            </div>
+            <div class="form-control">
+                <label for="designation">Designation</label>
+                <input type="text" name="designation" id="designation" placeholder="designation">
+            </div>
+            <div class="form-control">
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" placeholder="password">
+            </div>
+            <button class="btn" type="submit">Sign Up</button>
+            <br><br><br>
+            <div>have an account? <a href="/login">click here </a></div>
+        </form>
+    </main>
+    
+
+   
+    <%- include('./includes/end.ejs')%>

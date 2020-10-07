@@ -64,7 +64,8 @@ async (req,res)=>{
 
                 jwt.sign(payload, config.get('jwtToken'), {expiresIn:360000},(err,token)=>{
                     if (err) throw err;
-                    res.send({token});
+                    res.cookie('x-auth-token',token,{ maxAge: 2 * 60 * 60 * 1000*24, httpOnly: true });
+                    res.redirect('/dashboard');
                 });
                 }
 
