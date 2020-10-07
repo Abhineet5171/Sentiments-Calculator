@@ -95,7 +95,8 @@ router.get('/all',async (req,res)=>{
 //@desc   Get profile by user id
 //@access Public
 
-router.get('/user/:username',async (req,res)=>{
+router.get('/:username',async (req,res)=>{
+    console.log("here")
     try {
        const user = await User.findOne({username: req.params.username});
         if(!user){return res.status(400).json({msg:"Profile not found"})}

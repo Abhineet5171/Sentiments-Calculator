@@ -1,0 +1,27 @@
+<%- include('./includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/forms.css">
+    <link rel="stylesheet" href="/css/auth.css">
+</head>
+
+<body>
+    <main>
+        <form class="login-form" action="/api/auth" method="POST">
+            <div class="form-control">
+                <label for="username">Username</label>
+                <input type="text" name="username" id="username">
+            </div>
+            <div class="form-control">
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password">
+            </div>
+            <button class="btn" type="submit">Login</button>
+            <br><br><br>
+            <div>Don't have an account? <a href="/register">click here </a></div>
+        </form>
+    </main>
+    
+
+   
+    <%- include('./includes/end.ejs')%>
+
+    
