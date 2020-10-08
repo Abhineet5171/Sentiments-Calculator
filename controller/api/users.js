@@ -27,6 +27,7 @@ async (req,res)=>{
         return res.status(400).json({errors:errors.array() });
     }
     const {username,name,password,dateOfBirth,location,department,designation} = req.body;
+
     try{
         //see if user exists
             let user = await User.findOne({'username':username})
@@ -42,7 +43,7 @@ async (req,res)=>{
                     dateOfBirth,
                     location,
                     department,
-                    designation
+                    designation 
                 })
                 //hash password
                 const salt = await bcrypt.genSalt(10);
