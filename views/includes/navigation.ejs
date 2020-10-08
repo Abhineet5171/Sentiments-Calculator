@@ -3,7 +3,7 @@
     <nav class="main-header__nav">
         <ul class="main-header__item-list">
             <li class="main-header__item">
-                <a class="<%= path === '/dashboard' ? 'active' : '' %>" href="#">Cast/Change Vote</a>
+                <a class="<%= path === '/dashboard' ? 'active' : '' %>" href="/dashboard">Cast/Change Vote</a>
             </li>
             <li class="main-header__item">
                 <a class="#" href="#">Show Stats by Location</a>
@@ -15,9 +15,8 @@
 
         <ul class="main-header__item-list">
                 <li class="main-header__item">
-                        <a  href="#"><button type="submit">Profile</button></a>
-                        <a  href="/logout"><button type="submit">Logout</button></a>
-                    </form>
+                        <a  href="/profile" class = "<%= path === '/profile' ? 'active' : '' %>">Profile</a>
+                        <a  href="/logout" class="logout">Logout</a>
                 </li>
         </ul>
     </nav>

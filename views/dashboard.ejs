@@ -32,6 +32,10 @@
         <button class="btn" type="submit">Vote</button>
         </form>
     </span>
-    <span><button class="btn" type="submit">Unvote</button></span>
+    <span>
+        <form action="/api/vote/unvote" method="POST">
+            <button class="btn" type="submit">Unvote</button>
+        </form>
+    </span>
 </main>
 <%- include('./includes/end.ejs')%>

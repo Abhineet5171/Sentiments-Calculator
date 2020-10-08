@@ -59,6 +59,9 @@ form {
   margin: 0 1rem;
   padding: 0;
 }
+.logout{
+  margin-left: 3rem;
+}
 
 .main-header__item a,
 .main-header__item button {
@@ -271,6 +274,10 @@ form {
   color: white;
 }
 
+.table-key{
+color:red;
+padding:0 2rem;
+}
 @media (min-width: 768px) {
   .main-header__nav {
     display: flex;
@@ -284,5 +291,4 @@ form {
     width: 30rem;
   }
 }
-
 

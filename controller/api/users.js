@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const config = require('config');
+const auth = require('../../middleware/auth')
 const {check, validationResult} = require('express-validator');
 const bcrypt = require('bcryptjs')
 const User = require('../../model/User');
@@ -19,17 +20,13 @@ check('location','Enter a valid location').isLength({min:3}),
 check('department','Enter a valid department').isLength({min:2}),
 check('designation','Designation cannot be less than 3 char').isLength({min:3}),
 ],
-
 async (req,res)=>{
     console.log(req.body);
     const errors = validationResult(req);
-
     if(!errors.isEmpty()){
         return res.status(400).json({errors:errors.array() });
     }
-
     const {username,name,password,dateOfBirth,location,department,designation} = req.body;
-
     try{
         //see if user exists
             let user = await User.findOne({'username':username})
@@ -53,25 +50,18 @@ async (req,res)=>{
                 
                 await user.save();
                 console.log("user registered");
-                
-                
                 //return jsonwebtoken(so that when user sign up, he/she gets logged in right away)
                 const payload = {
                     user: {
                         id:user.id
                     }
                 }
-
                 jwt.sign(payload, config.get('jwtToken'), {expiresIn:360000},(err,token)=>{
                     if (err) throw err;
                     res.cookie('x-auth-token',token,{ maxAge: 2 * 60 * 60 * 1000*24, httpOnly: true });
                     res.redirect('/dashboard');
                 });
-                }
-
-
-
-
+            }
     } catch(err){
         console.error(err.message);
     }
@@ -79,8 +69,6 @@ async (req,res)=>{
 
 //get all users (to be consumed internally)
 router.get('/all',async (req,res)=>{
-    
-    
     if(req.headers.key==="valid-key"){try {
        const users = await User.find();
        res.json(users);
@@ -91,18 +79,38 @@ router.get('/all',async (req,res)=>{
     else {res.status(401).send("UNAUTHORISED REQUEST")}
 })
 
-//get a user's data
-//@route  Get api/user/user/:user_id
+
+
+
+//get a user's data by token
+//@route  Get api/user/userdata
+//@desc   Get profile by user id
+//@access Private
+router.get('/userdata',auth,async (req,res)=>{
+    try {
+        let user = await User.find({_id:req.user.id});
+        if(!user){return res.status(400).json({msg:"Profile not found"})}
+       res.json(user);
+    } catch (err) {
+        console.log(err.message);
+        if(err.kind == 'ObjectId'){
+            return res.status(400).json({msg:"Profile not found"})
+        }
+        console.error(err.message);
+        res.status(500).send('Server Error');
+        
+    }
+})
+
+//get a user's data by id
+//@route  Get api/user/user/:id
 //@desc   Get profile by user id
 //@access Public
-
-router.get('/:username',async (req,res)=>{
-    console.log("here")
+router.get('/:id',async (req,res)=>{
     try {
-       const user = await User.findOne({username: req.params.username});
+       const user = await User.findOne({_id:req.params.id});
         if(!user){return res.status(400).json({msg:"Profile not found"})}
-
-       res.json(user); 
+        res.json(user); 
     } catch (err) {
          console.log(err.message);
         if(err.kind == 'ObjectId'){
@@ -113,10 +121,5 @@ router.get('/:username',async (req,res)=>{
         
     }
 })
-
-
-
-
-
 
 module.exports = router;
