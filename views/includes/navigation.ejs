@@ -1,0 +1,27 @@
+<div class="backdrop"></div>
+<header class="main-header">
+    <nav class="main-header__nav">
+        <ul class="main-header__item-list">
+            <li class="main-header__item">
+                <a class="<%= path === '/dashboard' ? 'active' : '' %>" href="/dashboard">Cast/Change Vote</a>
+            </li>
+            <li class="main-header__item">
+                <a class="<%= path === '/stats/location' ? 'active' : '' %>" href="/stats/location">Show Stats by Location</a>
+            </li>
+            <li class="main-header__item">
+                <a class="<%= path === '/stats/designation' ? 'active' : '' %>" href="/stats/designation">Show Stats by Designation</a>
+            </li>
+            <li class="main-header__item">
+                <a class="<%= path === '/stats/department' ? 'active' : '' %>" href="/stats/department">Show Stats by Department</a>
+            </li>
+        </ul>
+
+        <ul class="main-header__item-list">
+                <li class="main-header__item">
+                        <a  href="/profile" class = "<%= path === '/profile' ? 'active' : '' %>">Profile</a>
+                        <a  href="/logout" class="logout">Logout</a>
+                </li>
+        </ul>
+    </nav>
+</header>
+

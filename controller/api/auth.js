@@ -27,31 +27,21 @@ router.get('/',auth,async (req,res)=>{
 //@desc   Authenticate user & generate token
 //@access PUBLIC 
 router.post('/',[
-
-    //check('name', 'name is required').not().isEmpty(),
     check('username','Please include a valid username').exists(),
-    check('password','Please enter a password').exists(),
-    //check('phoneNumber','Not a valid phone-number').isMobilePhone()     
-    
+    check('password','Please enter a password').exists(),    
     ],
-    
     async (req,res)=>{
         const errors = validationResult(req);
-    
         if(!errors.isEmpty()){
-            return res.status(400).json({errors:errors.array() });
+            return res.status(400).json({errors:"BAD REQUEST" });
         }
-    
         const {username,password} = req.body;
-    
         try{
             //see if user exists
                 let user = await User.findOne({"username":username})
-    
                 if (!user) {
                     res.status(400).json({error: [{msg:'Invalid credentials'}]});
                 }
-
                 else if (user){    
                     // user exists now compare the entered password
                     const isMatch =  await bcrypt.compare(password, user.password);
@@ -67,11 +57,13 @@ router.post('/',[
                         
                         jwt.sign(payload, config.get('jwtToken'), {expiresIn:360000},(err,token)=>{
                             if (err) throw err;
-                            res.send({token});
+                            //set cookie on login
+                             res.cookie('x-auth-token',token,{ maxAge: 2 * 60 * 60 * 1000*24, httpOnly: true });
+                            res.redirect('/dashboard');
                         });
-                        }
-
                     }
+
+                }
     
         } catch(err){
             console.error(arr.message);

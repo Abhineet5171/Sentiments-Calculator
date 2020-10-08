@@ -35,7 +35,7 @@ const UserSchema = new mongoose.Schema({
     },
     vote: {
         type: Number,
-        required: false
+        default: 0
     },
     lastModified: {
         type: Date,

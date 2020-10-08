@@ -1,0 +1,36 @@
+<%- include('../includes/head.ejs') %>
+    
+</head>
+
+<body>
+    <%- include('../includes/navigation.ejs') %>
+
+    <main>
+        <table style="border:1px solid black">
+            <tr style="border:1px solid black">
+                <th style="border:1px solid black">Designation</th>
+                <th style="border:1px solid black">Number of people voted</th>
+                <th style="border:1px solid black">Total Number of people registered</th>
+                <th style="border:1px solid black">Sentiment Score</th>
+                <th style="border:1px solid black">Percentage of People voted</th>
+            </tr>
+            <% for(var i=0; i<data.length; i++) {%>
+                <tr style="border:1px solid black">
+                    <td style="border:1px solid black"><%= data[i][0] %></td>
+                    <td style="border:1px solid black"><%= data[i][1] %></td>
+                    <td style="border:1px solid black"><%= data[i][2] %></td>
+                    <td style="border:1px solid black"><%= data[i][3] %></td>
+                    <td style="border:1px solid black"><%= (data[i][1]*100)/data[i][2]  %></td>
+
+                </tr>
+        <% } %>
+        </table>
+        
+            
+    </main>
+    
+
+   
+    <%- include('../includes/end.ejs')%>
+
+    

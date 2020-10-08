@@ -1,0 +1,26 @@
+<%- include('./includes/head.ejs') %>
+    
+</head>
+
+<body>
+    <%- include('./includes/navigation.ejs') %>
+
+    <main>
+       <table>
+           <tr><td class="table-key">Name</td> <td><%= name %></td></tr>
+           <tr><td class="table-key">username</td> <td><%= username %></td></tr>
+           <tr><td class="table-key">DOB</td> <td><%= DOB %></td></tr>
+           <tr><td class="table-key">Location</td> <td><%= location %></td></tr>
+           <tr><td class="table-key">department</td> <td><%= department %></td></tr>
+           <tr><td class="table-key">designation</td> <td><%= designation %></td></tr>
+           <tr><td class="table-key">voted?</td> <td><%= voted %></td></tr>
+           <tr><td class="table-key">vote</td> <td><%= vote? vote:''   %></td></tr>
+
+       </table>
+    </main>
+    
+
+   
+    <%- include('./includes/end.ejs')%>
+
+    
