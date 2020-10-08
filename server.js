@@ -18,7 +18,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/',require('./routes/home'));
 app.use('/vote',require('./routes/vote'));
-
+app.use('/stats',require('./routes/stats'));
 app.use('/api/user', require('./controller/api/users'));
 
 app.use('/api/auth', require('./controller/api/auth'));
