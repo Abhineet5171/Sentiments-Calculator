@@ -1,0 +1,34 @@
+{
+  "name": "sentiments-calculator",
+  "version": "1.0.0",
+  "description": "1. Stack used:\r     nodeJS\r     MongoDB\r     templating engine: ejs\r 2. Working:\r     a. User registeration : user signs up with the data:  name,username(unique), password, age, location, department and designation\r     b. After user logs in, s/he is allowed to cast 1 vote (user can edit this anytime)\r     c. User can view the vote statistics on basis of location or department or designation\r     d. User can logout\r 3. Possible Upgrades:\r     a: Uniqueness of user can be ensured by asking for a mail id / ph number for otp verification",
+  "main": "server.js",
+  "dependencies": {
+    "axios": "^0.20.0",
+    "bcrypt": "^5.0.0",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "config": "^3.3.2",
+    "cookie-parser": "^1.4.5",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "express-validator": "^6.6.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.10.8"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Abhineet5171/Sentiments-Calculator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Abhineet5171/Sentiments-Calculator/issues"
+  },
+  "homepage": "https://github.com/Abhineet5171/Sentiments-Calculator#readme"
+}
