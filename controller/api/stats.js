@@ -36,6 +36,7 @@ const locationStats = (user,locations) => {
 }
 
 const departmentStats = (user,departments) => {
+
     //add department to departments array if not added yet
     if (!departments[user.department]) {
       departments[user.department] = {
@@ -60,7 +61,7 @@ const departmentStats = (user,departments) => {
         }
     }
     else {
-        departments[user.location]['sentimentScore'] += 0
+        departments[user.department]['sentimentScore'] += 0
     }
     
 }
@@ -116,7 +117,7 @@ router.get('/department',async (req,res)=>{
        users.forEach(user=>departmentStats(user._id,departments));
        res.json(departments); 
     } catch (err) {
-        console.error(err.message);
+        
         res.status(500).send('Server Error');
     }
 })

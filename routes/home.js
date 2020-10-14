@@ -17,6 +17,27 @@ router.get('/login',(req,res,next)=>{
 router.get('/register',(req,res,next)=>{
     res.render('register',{pageTitle: "Register", path: '/register'})
 })
+router.post('/register',(req,res,next)=>{
+    //check if user is already logged in
+    if(!req.cookies['x-auth-token']){
+        const option = {url: `${config.get('webAddress')}/api/user/`};
+        axios.post(option.url, req.body)
+        .then((response)=>{
+            if(response.data.token){
+                res.cookie('x-auth-token',resonse.data.token,{ maxAge: 2 * 60 * 60 * 1000*24, httpOnly: true });
+                res.redirect('/dashboard');
+            }
+        })
+        .catch(function (error) {
+            // handle error
+            // console.log(error.response);
+        })
+    }
+    else {
+        res.send("please logout before registering a new user")
+    }
+    
+})
 
 router.get('/dashboard',auth,(req,res,next)=>{
     res.render('dashboard',{pageTitle: "Dashboard", path: '/dashboard'})
