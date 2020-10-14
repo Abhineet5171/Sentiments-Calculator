@@ -21,13 +21,14 @@ check('department','Enter a valid department').isLength({min:2}),
 check('designation','Designation cannot be less than 3 char').isLength({min:3}),
 ],
 async (req,res)=>{
-    console.log(req.body);
     const errors = validationResult(req);
     if(!errors.isEmpty()){
         return res.status(400).json({errors:errors.array() });
     }
-    const {username,name,password,dateOfBirth,location,department,designation} = req.body;
-
+    let {username,name,password,dateOfBirth,location,department,designation} = req.body;
+    location = location.toLowerCase();
+    department = department.toLowerCase();
+    designation = designation.toLowerCase();
     try{
         //see if user exists
             let user = await User.findOne({'username':username})
@@ -59,8 +60,9 @@ async (req,res)=>{
                 }
                 jwt.sign(payload, config.get('jwtToken'), {expiresIn:360000},(err,token)=>{
                     if (err) throw err;
-                    res.cookie('x-auth-token',token,{ maxAge: 2 * 60 * 60 * 1000*24, httpOnly: true });
-                    res.redirect('/dashboard');
+                    // res.cookie('x-auth-token',token,{ maxAge: 2 * 60 * 60 * 1000*24, httpOnly: true });
+                    // res.redirect('/dashboard');
+                    res.send({"token":token});
                 });
             }
     } catch(err){
